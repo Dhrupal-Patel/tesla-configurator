@@ -1,0 +1,37 @@
+<h1>Step 2: Select your config and options</h1>
+
+<div class="row">
+  <div class="form-group">
+    <label>Config:</label>
+    <select id="configSelect" class="form-control" [(ngModel)]="configSelected" (change)="configChange()">
+        <option value="undefined" selected>Choose Config</option>
+        @for (configOption of selectedCarOptions.configs; track configOption.id) {
+          <option [ngValue]="configOption"> {{ configOption.description }} </option>
+        }
+    </select>
+    @if(configSelected !== undefined) {
+      <p >Range: {{configSelected.range}} miles - Max Speed: {{configSelected.speed}} - Cost: {{ configSelected.price | currency}}</p>
+    }
+  </div>
+
+  @if(selectedCarOptions.towHitch) {
+    <div class="form-group">
+      <label>To hitch?:</label>
+      <input type="checkbox" id="includeTow" [(ngModel)]="selectedtowHitch" (change)="configChange()"/>
+    </div>
+  }
+
+  @if(selectedCarOptions.yoke) {
+    <div class="form-group">
+      <label>Yoke Steering wheel?</label>
+      <input type="checkbox" id="includeYoke" [(ngModel)]="selectedyoke" (change)="configChange()"/>
+    </div>
+  }
+
+</div>
+
+@if(storedStep1Data.model !== '' && storedStep1Data.color !== ''){
+  <div class="image-container">
+    <img [src]="imageURlPath+storedStep1Data.model+'/'+storedStep1Data.color+'.jpg'" width="750px" height="750px"/>
+  </div>
+}

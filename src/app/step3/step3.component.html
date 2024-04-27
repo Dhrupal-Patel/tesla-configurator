@@ -1,0 +1,66 @@
+<h1>Step 3: Summary</h1>
+
+
+<h1>Your Tesla <b>{{ step1Data?.modelDescription }}</b></h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <table class="table">
+      <tr>
+        <td>
+          <h3><b>{{ step2Data?.configs?.description }}</b></h3>
+          <p>Range: {{step2Data?.configs?.range}} miles - Max Speed: {{step2Data?.configs?.speed}}</p>
+        </td>
+        <td>{{ step2Data?.configs?.price | currency }}</td>
+      </tr>
+
+      <tr>
+        <td>
+          <h3><b>{{ step1Data?.colorDetails?.description }}</b></h3>
+        </td>
+        <td>
+          {{ (step1Data?.colorDetails?.price === 0) ? '-' : (step1Data?.colorDetails?.price | currency) }}
+        </td>
+      </tr>
+
+      @if(step2Data?.towHitch) {
+      <tr>
+        <td>
+          <h3><b>Tow Hitch Package</b></h3>
+        </td>
+        <td>{{ 1000 | currency }}</td>
+      </tr>
+      }
+
+      @if(step2Data?.yoke) {
+      <tr>
+        <td>
+          <h3><b>Yoke Steering Wheel</b></h3>
+        </td>
+        <td>{{ 1000 | currency }}</td>
+      </tr>
+      }
+
+      <tr>
+        <td>
+          <h3><b>Subtotal</b></h3>
+        </td>
+        <td>
+          {{
+          (step2Data?.configs?.price || 0) +
+          (step1Data?.colorDetails?.price || 0) +
+          (step2Data?.towHitch ? 1000 : 0) +
+          (step2Data?.yoke ? 1000 : 0) | currency
+          }}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6">
+    @if(step1Data?.model !== '' && step1Data?.color !== ''){
+      <div class="image-container">
+        <img [src]="imageURlPath+step1Data?.model+'/'+step1Data?.color+'.jpg'" width="750px" height="750px"/>
+      </div>
+    }
+  </div>
+</div>
