@@ -74,11 +74,14 @@ export class Step2Component {
       } else {
         this.configSelected = undefined;
       }
-      // this.configChange();
     });
   }
 
-  configChange() {
+  configChange(isConfigChange?: boolean) {
+    if (isConfigChange) {
+      this.selectedtowHitch = false;
+      this.selectedyoke = false;
+    }
     this.storedStep2Data = {
       configs: (this.configSelected !== undefined)? this.configSelected : undefined,
       towHitch: this.selectedtowHitch,
